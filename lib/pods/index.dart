@@ -10,36 +10,36 @@ final filterProvider = StateProvider<FilterOption>((ref) => FilterOption.all);
 /// Mock transactions
 final transactionListProvider = Provider<List<TransactionModel>>(
   (ref) => [
-    TransactionModel(
-      id: 'T1',
-      amount: 120.0,
-      date: DateTime.now().subtract(const Duration(days: 1)),
-      status: TransactionStatus.successful,
-    ),
-    TransactionModel(
-      id: 'T2',
-      amount: 55.5,
-      date: DateTime.now().subtract(const Duration(days: 2)),
-      status: TransactionStatus.pending,
-    ),
-    TransactionModel(
-      id: 'T3',
-      amount: 300.0,
-      date: DateTime.now().subtract(const Duration(days: 3)),
-      status: TransactionStatus.pending,
-    ),
-    TransactionModel(
-      id: 'T4',
-      amount: 75.0,
-      date: DateTime.now().subtract(const Duration(days: 4)),
-      status: TransactionStatus.successful,
-    ),
-    TransactionModel(
-      id: 'T5',
-      amount: 99.99,
-      date: DateTime.now().subtract(const Duration(days: 5)),
-      status: TransactionStatus.pending,
-    ),
+    // TransactionModel(
+    //   id: 'T1',
+    //   amount: 120.0,
+    //   date: DateTime.now().subtract(const Duration(days: 1)),
+    //   status: TransactionStatus.successful,
+    // ),
+    // TransactionModel(
+    //   id: 'T2',
+    //   amount: 55.5,
+    //   date: DateTime.now().subtract(const Duration(days: 2)),
+    //   status: TransactionStatus.pending,
+    // ),
+    // TransactionModel(
+    //   id: 'T3',
+    //   amount: 300.0,
+    //   date: DateTime.now().subtract(const Duration(days: 3)),
+    //   status: TransactionStatus.pending,
+    // ),
+    // TransactionModel(
+    //   id: 'T4',
+    //   amount: 75.0,
+    //   date: DateTime.now().subtract(const Duration(days: 4)),
+    //   status: TransactionStatus.successful,
+    // ),
+    // TransactionModel(
+    //   id: 'T5',
+    //   amount: 99.99,
+    //   date: DateTime.now().subtract(const Duration(days: 5)),
+    //   status: TransactionStatus.pending,
+    // ),
   ],
 );
 
@@ -53,7 +53,7 @@ final filteredTransactionsProvider = Provider<List<TransactionModel>>((ref) {
   return all.where((tx) {
     switch (filter) {
       case FilterOption.successful:
-        return tx.status == TransactionStatus.successful;
+        return tx.status == TransactionStatus.success;
       case FilterOption.pending:
         return tx.status == TransactionStatus.pending;
       case FilterOption.failed:

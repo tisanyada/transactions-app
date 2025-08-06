@@ -1,0 +1,98 @@
+[
+	{
+		"id": "1",
+		"merchantName": "Walmart",
+		"merchantImage": "https://logo.clearbit.com/walmart.com",
+		"amount": 150.5,
+		"date": "2024-03-15",
+		"status": "success",
+		"description": "Grocery shopping",
+		"subtitle": "Weekly groceries",
+		"paymentMethod": "Credit Card",
+		"icon": "shopping_cart"
+	},
+	{
+		"id": "2",
+		"merchantName": "AT&T",
+		"merchantImage": "https://logo.clearbit.com/att.com",
+		"amount": 45.99,
+		"date": "2024-03-18",
+		"status": "success",
+		"description": "Internet bill",
+		"subtitle": "Monthly subscription",
+		"paymentMethod": "Direct Debit",
+		"icon": "wifi"
+	},
+	{
+		"id": "3",
+		"merchantName": "PG&E",
+		"merchantImage": "https://logo.clearbit.com/pge.com",
+		"amount": 250.0,
+		"date": "2024-03-20",
+		"status": "refunded",
+		"description": "Electricity bill",
+		"subtitle": "March utilities",
+		"paymentMethod": "Bank Transfer",
+		"icon": "bolt"
+	},
+	{
+		"id": "4",
+		"merchantName": "Verizon",
+		"merchantImage": "https://logo.clearbit.com/verizon.com",
+		"amount": 75.25,
+		"date": "2025-08-06",
+		"status": "success",
+		"description": "Phone bill",
+		"subtitle": "Monthly plan",
+		"paymentMethod": "Credit Card",
+		"icon": "phone"
+	},
+	{
+		"id": "5",
+		"merchantName": "Water Corp",
+		"merchantImage": "https://logo.clearbit.com/watercorp.com",
+		"amount": 180.0,
+		"date": "2024-02-15",
+		"status": "success",
+		"description": "Water bill",
+		"subtitle": "February utilities",
+		"paymentMethod": "Direct Debit",
+		"icon": "water_drop"
+	},
+	{
+		"id": "6",
+		"merchantName": "Comcast",
+		"merchantImage": "https://logo.clearbit.com/comcast.com",
+		"amount": 95.5,
+		"date": "2025-07-06",
+		"status": "success",
+		"description": "Internet subscription",
+		"subtitle": "High-speed plan",
+		"paymentMethod": "Credit Card",
+		"icon": "router"
+	},
+	{
+		"id": "7",
+		"merchantName": "Comcast",
+		"merchantImage": "https://logo.clearbit.com/comcast.com",
+		"amount": 320.75,
+		"date": "2025-07-02",
+		"status": "success",
+		"description": "House rent",
+		"subtitle": "Monthly rent",
+		"paymentMethod": "Bank Transfer",
+		"icon": "home"
+	},
+	{
+		"id": "8",
+		"merchantName": "T-Mobile",
+		"merchantImage": "https://logo.clearbit.com/t-mobile.com",
+		"amount": 65.99,
+		"date": "2025-08-06",
+		"status": "success",
+		"description": "Mobile recharge",
+		"subtitle": "Data plan renewal",
+		"paymentMethod": "Debit Card",
+		"icon": "smartphone"
+	}
+]

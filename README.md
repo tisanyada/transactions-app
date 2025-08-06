@@ -1,66 +1,129 @@
-# 💸 Flutter Riverpod Transactions App
+# KobiPay Transaction App
 
-A simple Flutter app that demonstrates state management using [Riverpod](https://riverpod.dev). This app displays a list of mock financial transactions and allows users to filter them by status (All, Successful, Pending, Failed). It includes smooth list animations and fallback UI when no transactions are found.
+A Flutter application for managing and viewing transactions with features like filtering, refunding, and detailed transaction views.
 
----
+## Setup Instructions
 
-## 📲 Features
+1. **Prerequisites**
 
-- ✅ Riverpod for scalable state management
-- ✅ Dynamic transaction filtering using horizontal `ChoiceChip`s
-- ✅ Fade + slide-in animation for each transaction item
-- ✅ Fallback UI for empty transaction states
-- ✅ Counter demo using `StateProvider`
-- ✅ Clean architecture with providers, models, and screens
+    - Flutter SDK (3.5.3 or later)
+    - Dart SDK (3.0.0 or later)
+    - A code editor (VS Code, Android Studio, etc.)
 
----
+2. **Installation**
 
-## 🧠 State Management Overview
+    ```bash
+    # Clone the repository
+    git clone [repository-url]
 
-| Provider | Description |
-|---------|-------------|
-| `counterProvider` | Manages counter state with `StateProvider<int>` |
-| `filterProvider` | Tracks currently selected filter (`FilterOption`) |
-| `transactionListProvider` | Provides list of static mock transactions |
-| `filteredTransactionsProvider` | Filters transactions based on selected `filterProvider` value |
+    # Navigate to project directory
+    cd kobipay
 
-All providers are declared and exported via `pods/index.dart`.
+    # Install dependencies
+    flutter pub get
 
+    # Run the app
+    flutter run
+    ```
 
-### Test Transactions
-TransactionModel(id: '1', amount: 100, status: TransactionStatus.successful)
-TransactionModel(id: '2', amount: 250, status: TransactionStatus.failed)
-TransactionModel(id: '3', amount: 80,  status: TransactionStatus.pending)
-TransactionModel(id: '4', amount: 400, status: TransactionStatus.successful)
-TransactionModel(id: '5', amount: 150, status: TransactionStatus.pending)
+## Libraries Used
 
+-   **flutter_riverpod**: ^2.6.1
 
----
+    -   State management solution
+    -   Provides reactive and provider-based state management
 
-## 🏗 Folder Structure
-lib/
-├── core/
-│ └── models/
-│ └── transaction_model.dart # Defines TransactionModel & enums
-│
-├── pods/
-│ └── index.dart # Riverpod providers for filter, transactions, counter
-│
-├── screens/
-│ └── home_screen.dart # Main UI: filter, list, counter, animations
-│
-├── main.dart # App entry point wrapped with ProviderScope
+-   **intl**: ^0.19.0
+    -   Internationalization and formatting
+    -   Used for date and currency formatting
 
+## Design and State Management Decisions
 
-## 🚀 Getting Started
+### Architecture
 
-### ✅ Prerequisites
-- Flutter SDK (>=3.x)
-- Dart enabled IDE (e.g. VSCode or Android Studio)
+-   **Repository Pattern**
 
-### 📦 Install dependencies
+    -   Clear separation of data layer
+    -   Easy to switch between mock and real API
+    -   Located in `lib/pods/transaction_repo.dart`
 
-```bash
-flutter pub get
+-   **Controller Pattern**
+    -   Business logic handling
+    -   State management with Riverpod
+    -   Located in `lib/pods/transaction_controller.dart`
 
+### State Management
 
+-   Using **Riverpod** for:
+    -   Dependency injection
+    -   State management
+    -   Async data handling
+    -   Filter state management
+
+### UI Components
+
+-   **Screens**
+
+    -   Home Screen: List of transactions with filters
+    -   Transaction Detail Screen: Detailed view with refund capability
+
+-   **Widgets**
+    -   Custom transaction card
+    -   Filter chips
+    -   Animated list items
+    -   Status indicators with color coding
+
+### Features
+
+1. **Transaction Filtering**
+
+    - All transactions
+    - This month's transactions
+    - Last month's transactions
+
+2. **Transaction Management**
+
+    - View transaction details
+    - Process refunds
+    - Status tracking
+
+3. **UI/UX**
+    - Pull-to-refresh
+    - Loading states
+    - Error handling
+    - Success/error feedback
+    - Smooth animations
+
+## API Simulation
+
+The app currently simulates API behavior using local JSON data:
+
+1. **Data Storage**
+
+    - Transactions are stored in `assets/transactions.json`
+    - Structured to mimic real API responses
+
+2. **API Operations**
+
+    - `getTransactions()`: Reads from local JSON file
+    - `refundTransaction()`: Simulates network delay with Future.delayed
+    - All operations return Futures to mimic async API calls
+
+3. **Error Handling**
+
+    - Simulates network and processing errors
+    - Provides realistic error messages
+    - Handles loading and error states
+
+4. **Future Real API Integration**
+    - Repository pattern makes it easy to switch to real API
+    - Just update the repository methods with actual API calls
+    - No changes needed in UI or business logic
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a new Pull Request

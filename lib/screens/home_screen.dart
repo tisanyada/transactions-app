@@ -1,8 +1,10 @@
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
-import 'package:kobipay/pods/index.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kobipay/core/models/transaction_model.dart';
+import 'package:kobipay/pods/transaction_controller.dart';
+import 'package:kobipay/services/index.dart';
+import 'package:kobipay/widgets/transaction_widget.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -12,16 +14,14 @@ class HomeScreen extends ConsumerStatefulWidget {
 }
 
 class _MyHomeScreenState extends ConsumerState<HomeScreen> {
-  void _incrementCounter() {
-    ref.read(counterProvider.notifier).state++;
-  }
-
   Color _statusColor(TransactionStatus status) {
     switch (status) {
-      case TransactionStatus.successful:
+      case TransactionStatus.success:
         return Colors.green;
-      case TransactionStatus.pending:
+      case TransactionStatus.refunded:
         return Colors.orange;
+      case TransactionStatus.pending:
+        return Colors.blue;
       case TransactionStatus.failed:
         return Colors.red;
     }
@@ -30,7 +30,7 @@ class _MyHomeScreenState extends ConsumerState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final filter = ref.watch(filterProvider);
-    final transactions = ref.watch(filteredTransactionsProvider);
+    final transactionsAsync = ref.watch(filteredTransactionsProvider);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -42,8 +42,9 @@ class _MyHomeScreenState extends ConsumerState<HomeScreen> {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
+            // Filter chips
             SizedBox(
-              height: 40, // Use at least 40 for proper display of ChoiceChips
+              height: 40,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: FilterOption.values.length,
@@ -69,8 +70,28 @@ class _MyHomeScreenState extends ConsumerState<HomeScreen> {
 
             // Transaction list
             Expanded(
-              child: transactions.isEmpty
-                  ? Center(
+              child: transactionsAsync.when(
+                loading: () => const Center(
+                  child: CircularProgressIndicator(),
+                ),
+                error: (error, stack) => Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.error_outline,
+                          size: 64, color: Colors.red.shade400),
+                      const SizedBox(height: 12),
+                      Text(
+                        'Error: $error',
+                        style: const TextStyle(fontSize: 16, color: Colors.red),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                ),
+                data: (transactions) {
+                  if (transactions.isEmpty) {
+                    return Center(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -84,10 +105,16 @@ class _MyHomeScreenState extends ConsumerState<HomeScreen> {
                           ),
                         ],
                       ),
-                    )
-                  : ListView.builder(
+                    );
+                  }
+
+                  return RefreshIndicator(
+                    onRefresh: () async {
+                      ref.refresh(filteredTransactionsProvider);
+                    },
+                    child: ListView.builder(
                       itemCount: transactions.length,
-                      itemBuilder: (_, index) {
+                      itemBuilder: (context, index) {
                         final tx = transactions[index];
                         return TweenAnimationBuilder<double>(
                           tween: Tween(begin: 0, end: 1),
@@ -101,18 +128,13 @@ class _MyHomeScreenState extends ConsumerState<HomeScreen> {
                               ),
                             );
                           },
-                          child: ListTile(
-                            leading: Icon(
-                              Icons.monetization_on,
-                              color: _statusColor(tx.status),
-                            ),
-                            title: Text('₦${tx.amount.toStringAsFixed(2)}'),
-                            subtitle: Text(DateFormat.yMMMd().format(tx.date)),
-                            trailing: Text(tx.status.name.toUpperCase()),
-                          ),
+                          child: TransactionWidget(transaction: tx),
                         );
                       },
                     ),
+                  );
+                },
+              ),
             ),
           ],
         ),

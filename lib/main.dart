@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kobipay/presentation/home_screen.dart';
+import 'package:kobipay/screens/home_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
