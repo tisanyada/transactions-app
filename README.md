@@ -127,3 +127,7 @@ The app currently simulates API behavior using local JSON data:
 3. Commit your changes
 4. Push to the branch
 5. Create a new Pull Request
+
+# VIDEO URL
+
+- Video Url: https://www.awesomescreenshot.com/video/42842367?key=164827829eca4d901917e1d86ad11a1e
